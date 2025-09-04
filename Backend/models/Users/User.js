@@ -49,7 +49,7 @@ location:{
 notificationType:{
   email:{
     type:String,
-    required:true
+  
   }
 },
 gender:{
