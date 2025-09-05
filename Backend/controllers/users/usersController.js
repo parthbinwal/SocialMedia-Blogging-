@@ -1,10 +1,11 @@
 const User=require('../../models/Users/User')
 const bcrypt=require('bcryptjs');
 const generateToken=require('../../utils/generateToken')
+const asyncHandler=require('express-async-handler')
 // register the new user it will work on register post route:/api/v1/users/register
 //access public  it can be access anywhere
-exports.register=async(req,resp)=>{
-try {
+exports.register=asyncHandler(async(req,resp,next)=>{
+
   const{username,password,email}=req.body;
    const user=await User.findOne({username});
    if(user){
@@ -21,15 +22,12 @@ try {
     email:newUser?.email,
     role:newUser?.role,
    })
+});
 
-} catch (error) {
-  resp.json({status:"failed",message:error?.message})
-}
-}
 //  route:/api/v1/users/register/login
 //@login user route post global access 
-exports.login=async(req,resp)=>{
-   try{  const{username,password}=req.body;
+exports.login=asyncHandler(async(req,resp,next)=>{
+   const{username,password}=req.body;
    const user=await User.findOne({username});
   if(!user){
   throw new Error("Invalid credential")
@@ -49,22 +47,19 @@ resp.json({
   role:user?.role,
   token:generateToken(user),
 })
-   }
-catch(error){
-resp.json({
-  status:"failed",
-  message:error?.message
-})
-}
+   
 
-}
+});
+
 //@desc Profiel view
 //get request api/v1/users/profile/:id
 //access private
-exports.getProfile=async (req,resp)=>{
-try {
+exports.getProfile=asyncHandler(async (req,resp,next)=>{
+ const user=await User.findById(req.userAuth.id) ;
+ resp.json({
+  status:'success',
+  message:'profile fetched',
+  user,
+ })
   
-} catch (error) {
-  
-}
-}
+});
