@@ -9,10 +9,11 @@ exports.createCategory=asyncHandler(async (req,resp,next)=>{
    if(isCategoryPresent){
    throw new Error("category already exist");
    }
-   await Category.create({name,})
-
-
-
-
+   const category=await Category.create({name,author:req?.userAuth?._id})
+   resp,json({
+      status:"success",
+      message:"category created successfully",
+      category,
+   })
 }
 );
