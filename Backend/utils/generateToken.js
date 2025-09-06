@@ -5,7 +5,7 @@ const payload={
     id:user._id
   },
 };
-const token=jwt.sign(payload,"secretkey",{expiresIn:3600})
+const token=jwt.sign(payload,process.env.JWT_KEY,{expiresIn:3600})
 return token;
 
 

@@ -4,7 +4,7 @@ const isLoggedIn=(req,resp,next)=>{
   console.log("isLoggedIn executed");
   const token=req?.headers?.authorization?.split(" ")[1]; 
   //verify 
-  jwt.verify(token,"secretkey",async(err,decoded)=>{
+  jwt.verify(token,process.env.JWT_KEY,async(err,decoded)=>{
    if(err){
     return resp.status(401).json({
       status:"failed",
