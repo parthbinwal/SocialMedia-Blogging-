@@ -7,5 +7,5 @@ usersRouter.post('/register',register);
 //login 
 usersRouter.post('/login',login);
 //profile
-usersRouter.get('/profile/:id',isLoggedIn,getProfile);
+usersRouter.get('/profile',isLoggedIn,getProfile);
 module.exports=usersRouter;
