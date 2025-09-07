@@ -1,4 +1,4 @@
-const asyncHandler=require('express-async-handler');
+ const asyncHandler=require('express-async-handler');
 const Post=require('../../models/Posts/Post');
 const User=require('../../models/Users/User');
 const Category=require('../../models/Categories/Category')
@@ -26,3 +26,15 @@ exports.createPost=asyncHandler(async(req,resp,next)=>{
   })
 }
 )
+//get all post private
+//get api/v1/posts
+exports.getAllPosts=asyncHandler(async(req,res)=>{
+  //fetch all the post
+  const allPost=await Posts.find({})
+  //
+   res.json({
+    status:"success",
+    message:"all post successfully fetched",
+    allPost
+  })
+})
