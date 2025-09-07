@@ -30,7 +30,7 @@ postViews:{
   default:0
 },
 category:{
-  types:mongoose.Schema.Types.ObjectId,ref:"Category",
+  type:mongoose.Schema.Types.ObjectId,ref:"Category",
   required:true
 },
 schedulePublished:{
